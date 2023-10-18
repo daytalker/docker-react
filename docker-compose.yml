@@ -1,0 +1,22 @@
+version: '3'
+services:
+  react-app:
+    build:
+      context: . # where we want all the files and folders to come from
+      dockerfile: Dockerfile.dev # how is the Dockerfile named?
+    ports:
+      - "3000:3000" #outside:inside
+      - "5000:3000"
+    volumes:
+      - /home/node/app/node_modules
+      - ~/frontend:/home/node/app
+      #- /app/node_modules
+      #- .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /home/node/app/node_modules
+      - ~/frontend:/home/node/app
+    command: ["npm", "run", "test"]
